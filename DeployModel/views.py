@@ -64,9 +64,12 @@ def get_block_data(block_hash):
     except requests.exceptions.RequestException as err:
         print(f"An unexpected error occurred: {err}")
 
-# Replace 'your_block_hash' with the actual block hash you want to retrieve
-block_hash_to_get = '0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103'
-block_data = get_block_data(block_hash_to_get)
+def index(request):
+    return render(request, "index.html")
 
-# Do something with the block_data
-pprint.pprint(block_data)
+# Replace 'your_block_hash' with the actual block hash you want to retrieve
+# block_hash_to_get = '0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103'
+# block_data = get_block_data(block_hash_to_get)
+
+# # Do something with the block_data
+# pprint.pprint(block_data)

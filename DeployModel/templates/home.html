@@ -6,7 +6,7 @@
     <title>CideCode</title>
 </head>
 <body>
-    <form action="{%url 'result' %}">
+    <form action="{% url 'result' %}">
        {% csrf_token %}
 
         <input type="text" required name="txid">
