@@ -2,6 +2,7 @@ const ta = document.getElementById("ta");
 const ma = document.getElementById("ma");
 const it = document.getElementById("it");
 
+<<<<<<< HEAD
 ta.addEventListener("click", () => {
     transaction();
 })
@@ -20,6 +21,20 @@ const mixer = () => {
 }
 const illicit = () => {
     window.location.replace("./templates/illicit.html");
+=======
+// ta.addEventListener("click", () => {
+//     wip();
+// })
+ma.addEventListener("click", () => {
+    wip();
+})
+it.addEventListener("click", () => {
+    wip();
+})
+
+const wip = () => {
+    window.location.replace("./notfound.html");
+>>>>>>> d24460293c9dc51eb405d0ea47162381a6b36a9d
 }
 
 
@@ -33,7 +48,11 @@ if (screen.width >= 550) {
 }
 window.addEventListener("resize", () => {
     if (screen.width < 550) {
+<<<<<<< HEAD
         hamburger.style.display = "flex";
+=======
+        hamburger.style.display = "block";
+>>>>>>> d24460293c9dc51eb405d0ea47162381a6b36a9d
     }
     if (screen.width >= 550) {
         hamburger.style.display = "none";
@@ -41,8 +60,13 @@ window.addEventListener("resize", () => {
 })
 
 hamburger.addEventListener("click", () => {
+<<<<<<< HEAD
     if (dropdownnav.style.display != "flex" && screen.width <= 550) {
         dropdownnav.style.display = "flex";
+=======
+    if (dropdownnav.style.display != "block" && screen.width <= 550) {
+        dropdownnav.style.display = "block";
+>>>>>>> d24460293c9dc51eb405d0ea47162381a6b36a9d
     } else {
         dropdownnav.style.display = "none";
     }
@@ -64,4 +88,8 @@ getstarted2.addEventListener("click", () => {
 })
 getstarted3.addEventListener("click", () => {
     window.location = "#content";
+<<<<<<< HEAD
 })
+=======
+})
+>>>>>>> d24460293c9dc51eb405d0ea47162381a6b36a9d
