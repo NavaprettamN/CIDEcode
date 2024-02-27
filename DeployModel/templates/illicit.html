@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Illicit Transactions</title>
+    <link rel="stylesheet" href="../assets/css/illicit.css">
+</head>
+<body>
+    <nav>
+        <h1>C R E W</h1>
+        <div class="links" id="links">
+            <a href="../index.html">Home</a>
+            <a href="./mixer.html">Mixer Analysis</a>
+            <a href="./transaction.html">Transaction Analysis</a>
+            <!-- <button class="getstarted" id="getstarted1">Get Started</button> -->
+        </div>
+        <button class="hamburger" id="hamburger">
+            <img src="../assets/vectors/landing/cryptocurrency.gif" alt="hamburger">
+        </button>
+    </nav>
+    <div class="links dropdownnav" id="dropdownnav">
+        <a href="../index.html">Home</a>
+        <a href="./mixer.html">Mixer Analysis</a>
+        <a href="./transaction.html">Transaction Analysis</a>
+        <!-- <button class="getstarted" id="getstarted2">Get Started</button> -->
+    </div>
+    <section class="content" id="content">
+        <h1>Illicit Transactions</h1>
+        <br>
+        <article class="illicit">
+            <div class="data">
+                <div>
+                    <label for="wa1">Wallet Address 1</label>
+                    <input type="text" placeholder="Enter addr1..." id="wa1">
+                </div>
+                <div>
+                    <label for="wa2">Wallet Address 2</label>
+                    <input type="text" placeholder="Enter addr2..." id="wa2">
+                </div>
+                <div>
+                    <label for="amt">Amount in BTC</label>
+                    <input type="number" placeholder="Enter amount..." id="amt">
+                </div>
+                <div>
+                    <label for="time">Time in hh:mm:ss</label>
+                    <input type="text" placeholder="Enter Time ..." id="time">
+                </div>
+                <div>
+                    <label for="numtx">Number of Transactions</label>
+                    <input type="number" placeholder="Number of Transactions..." id="numtx">
+                </div>
+            </div>
+            <div class="output">
+                <p> 
+                    {
+                        Analysis goes here!
+                    }
+                </p>
+            </div>
+        </article>
+    </section>
+    <script type="module" src="../assets/js/illicit.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not found!</title>
+    <!-- <link rel="stylesheet" href="./assets/css/style.css"> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+        body {
+            background-color: #000;
+            font-family: 'Poppins', sans-serif;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            border-radius: 2vw;
+            padding: 30px;
+            background-color: whitesmoke;
+        }
+        img {
+            width: 28vw;
+            border-radius: 2vw;
+        }
+        button {
+            background-color: #50fd56;
+            /* width: 30%; */
+            border-radius: 2vw; 
+            padding: 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            Sorry come back soon!!
+        </h1>
+        <img src="./assets/vectors/landing/work-in-progress.png" alt="not-found" class="not-found">
+        <button onclick="back()">Go back</button>
+    </div>
+    <script>
+        // const btn = document.querySelector("button");
+        // btn.addEventListener("click", () => {
+        //     console.log("asd")
+        //     window.location.replace = "./index.html";
+        // })
+        const back = () => {
+            console.log("asd")
+            window.location.replace("./index.html");
+        }
+    </script>
+</body>
+</html>

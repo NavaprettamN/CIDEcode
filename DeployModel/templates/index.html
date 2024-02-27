@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIDECODE</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VLR0CXYWJK"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-VLR0CXYWJK');
+</script>
+
+<body>
+    <nav>
+        <h1>C R E W</h1>
+        <div class="links" id="links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#contact">Contact</a>
+            <button class="getstarted" id="getstarted1">Get Started</button>
+        </div>
+        <button class="hamburger" id="hamburger">
+            <img src="{% static "/assets/vectors/landing/cryptocurrency.gif" %}" alt="hamburger">
+        </button>
+    </nav>
+    <div class="links dropdownnav" id="dropdownnav">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#contact">Contact</a>
+        <button class="getstarted" id="getstarted2">Get Started</button>
+    </div>
+    <main>
+        <section class="landing">
+            <article class="options">
+                <h2>Welcome!</h2>
+                <br>
+                <hr>
+                <br>
+                <h4>Product name is your one step towards finding out the illicit transactions in the Crypto Network!
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro necessitatibus reiciendis odio
+                    harum?</h4>
+                <button class="getstartedbutton" id="getstarted3">Get Started</button>
+            </article>
+            <img src="./assets/vectors/landing/cryptocurrency.gif" alt="cryptocurrency" class="cryptocurrency">
+        </section>
+        <section class="content" id="content">
+            <h1>Our Services</h1>
+            <br>
+            <article class="services">
+                <div class="servicecard" id="ta">
+                    <h1>Transaction Analysis</h1>
+                    <img src="./assets/vectors/landing/bitcoin-mining.png" alt="bitcoin-mining"
+                        class="serviceimg bitcoin-mining">
+                    <p>Track crypto with various attributes that you can gather</p>
+                </div>
+                <div class="servicecard" id="ma">
+                    <h1>Mixer Analysis</h1>
+                    <img src="./assets/vectors/landing/gpu-mining.png" alt="gpu-mining" class="serviceimg gpu-mining">
+                    <p>Check if the funds are moving through a mixer or a tumbler</p>
+                </div>
+                <div class="servicecard" id="it">
+                    <h1>Illicit transactions</h1>
+                    <img src="./assets/vectors/landing/bitcoin.png" alt="bitcoin" class="serviceimg bitcoin">
+                    <p>Check if the user is engaged into money laundering</p>
+                </div>
+            </article>
+        </section>
+        <section class="contact" id="contact">
+
+        </section>
+    </main>
+    <script type="module" src="./assets/js/index.js"></script>
+</body>
+
+</html>
