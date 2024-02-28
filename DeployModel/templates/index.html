@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +50,7 @@
                     harum?</h4>
                 <button class="getstartedbutton" id="getstarted3">Get Started</button>
             </article>
-            <img src="./assets/vectors/landing/cryptocurrency.gif" alt="cryptocurrency" class="cryptocurrency">
+            <img src="{% static "assets/vectors/landing/cryptocurrency.gif"%}" alt="cryptocurrency" class="cryptocurrency">
         </section>
         <section class="content" id="content">
             <h1>Our Services</h1>
@@ -57,18 +58,18 @@
             <article class="services">
                 <div class="servicecard" id="ta">
                     <h1>Transaction Analysis</h1>
-                    <img src="./assets/vectors/landing/bitcoin-mining.png" alt="bitcoin-mining"
+                    <img src="{% static "assets/vectors/landing/bitcoin-mining.png"%}" alt="bitcoin-mining"
                         class="serviceimg bitcoin-mining">
                     <p>Track crypto with various attributes that you can gather</p>
                 </div>
                 <div class="servicecard" id="ma">
                     <h1>Mixer Analysis</h1>
-                    <img src="./assets/vectors/landing/gpu-mining.png" alt="gpu-mining" class="serviceimg gpu-mining">
+                    <img src="{% static "assets/vectors/landing/gpu-mining.png"%}" alt="gpu-mining" class="serviceimg gpu-mining">
                     <p>Check if the funds are moving through a mixer or a tumbler</p>
                 </div>
                 <div class="servicecard" id="it">
                     <h1>Illicit transactions</h1>
-                    <img src="./assets/vectors/landing/bitcoin.png" alt="bitcoin" class="serviceimg bitcoin">
+                    <img src="{% static "assets/vectors/landing/bitcoin.png"%}" alt="bitcoin" class="serviceimg bitcoin">
                     <p>Check if the user is engaged into money laundering</p>
                 </div>
             </article>
@@ -77,7 +78,6 @@
 
         </section>
     </main>
-    <script type="module" src="./assets/js/index.js"></script>
+    <script type="module" src="{% static "assets/js/index.js"%}"></script>
 </body>
-
 </html>
