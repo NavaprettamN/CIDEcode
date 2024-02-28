@@ -9,4 +9,7 @@ urlpatterns = [
     path("home/", views.home, name='home'),
     path("result/", views.result, name='result'),
     path("", views.index, name="index"),
+    path("mixer/", views.mixer_page, name='mixer'),
+    path("illicit/", views.illicit_page, name='illicit'),
+    path("transaction/", views.transaction_page, name='transaction'),
 ]

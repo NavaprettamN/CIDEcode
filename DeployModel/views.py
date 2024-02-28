@@ -67,6 +67,17 @@ def get_block_data(block_hash):
 def index(request):
     return render(request, "index.html")
 
+def transaction_page(request):
+    return render(request, "transactioon.html")
+
+def mixer_page(request):
+    return render(request, "mixer.html")
+
+def illicit_page(request):
+    return render(request, "illicit.html")
+
+
+
 # Replace 'your_block_hash' with the actual block hash you want to retrieve
 # block_hash_to_get = '0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103'
 # block_data = get_block_data(block_hash_to_get)
