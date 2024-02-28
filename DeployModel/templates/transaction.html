@@ -1,26 +1,27 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction Analysis</title>
-    <link rel="stylesheet" href="../assets/css/transaction.css">
+    <link rel="stylesheet" href="{% static "assets/css/transaction.css" %} ">
 </head>
 <body>
     <nav>
         <h1>C R E W</h1>
         <div class="links" id="links">
-            <a href="../index.html">Home</a>
+            <a href="./index.html">Home</a>
             <a href="./mixer.html">Mixer Analysis</a>
             <a href="./illicit.html"> Illicit Transaction</a>
             <!-- <button class="getstarted" id="getstarted1">Get Started</button> -->
         </div>
         <button class="hamburger" id="hamburger">
-            <img src="../assets/vectors/landing/cryptocurrency.gif" alt="hamburger">
+            <img src="{% static "assets/vectors/landing/cryptocurrency.gif" %}" alt="hamburger">
         </button>
     </nav>
     <div class="links dropdownnav" id="dropdownnav">
-        <a href="../index.html">Home</a>
+        <a href="./index.html">Home</a>
         <a href="./mixer.html">Mixer Analysis</a>
         <a href="./illicit.html"> Illicit Transaction</a>
         <!-- <button class="getstarted" id="getstarted2">Get Started</button> -->
@@ -31,12 +32,12 @@
         <article class="services">
             <form class="searchtransaction">
                 <input type="text" placeholder="Enter transaction ID..." id="searchbar">
-                <img src="../assets/vectors/transaction/search.png" class="searchbtn" alt="Search" id="searchtransaction">
+                <img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchtransaction">
             </form>
            <!-- <div class="line-separator" id="line-separator"></div> -->
            <form class="searchwallet">
                 <input type="text" placeholder="Enter wallet Address..." id="searchbar">
-                <img src="../assets/vectors/transaction/search.png" class="searchbtn" alt="Search" id="searchwallet">
+                <img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchwallet">
            </form>
             <div class="output_container">
                 <p>
@@ -47,6 +48,6 @@
             </div>
         </article>
     </section>
-    <script type="module" src="../assets/js/transaction.js"></script>
+    <script type="module" src="{% static "assets/js/transaction.js" %}"></script>
 </body>
 </html>

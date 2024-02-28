@@ -89,11 +89,8 @@ nav h1 {
 .dropdownnav {
     display: none;
     flex-direction: column;
-<<<<<<< HEAD
     align-items: center;
     justify-content: center;
-=======
->>>>>>> d24460293c9dc51eb405d0ea47162381a6b36a9d
 }
 
 .links a:hover {

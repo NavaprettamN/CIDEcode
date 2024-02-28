@@ -1,16 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mixer Analysis</title>
-    <link rel="stylesheet" href="../assets/css/mixer.css">
+    <link rel="stylesheet" href="{% static "assets/css/mixer.css"%}">
 </head>
 <body>
     <nav>
         <h1>C R E W</h1>
         <div class="links" id="links">
-            <a href="../index.html">Home</a>
+            <a href="./index.html">Home</a>
             <a href="./transaction.html">Transaction Analysis</a>
             <a href="./illicit.html">Illicit Transactions</a>
             <!-- <button class="getstarted" id="getstarted1">Get Started</button> -->
@@ -20,7 +21,7 @@
         </button>
     </nav>
     <div class="links dropdownnav" id="dropdownnav">
-        <a href="../index.html">Home</a>
+        <a href="./index.html">Home</a>
             <a href="./transaction.html">Transaction Analysis</a>
             <a href="./illicit.html">Illicit Transactions</a>
         <!-- <button class="getstarted" id="getstarted2">Get Started</button> -->
@@ -64,6 +65,6 @@
             </div>
         </article>
     </section>
-    <script type="module" src="../assets/js/mixer.js"></script>
+    <script type="module" src="{% static "assets/js/mixer.js"%}"></script>
 </body>
 </html>

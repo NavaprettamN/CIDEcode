@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Illicit Transactions</title>
-    <link rel="stylesheet" href="../assets/css/illicit.css">
+    <link rel="stylesheet" href="{% static "assets/css/illicit.css"%}">
 </head>
 <body>
     <nav>
         <h1>C R E W</h1>
         <div class="links" id="links">
-            <a href="../index.html">Home</a>
+            <a href="./index.html">Home</a>
             <a href="./mixer.html">Mixer Analysis</a>
             <a href="./transaction.html">Transaction Analysis</a>
             <!-- <button class="getstarted" id="getstarted1">Get Started</button> -->
         </div>
         <button class="hamburger" id="hamburger">
-            <img src="../assets/vectors/landing/cryptocurrency.gif" alt="hamburger">
+            <img src="{% static "assets/vectors/landing/cryptocurrency.gif"%}" alt="hamburger">
         </button>
     </nav>
     <div class="links dropdownnav" id="dropdownnav">
-        <a href="../index.html">Home</a>
+        <a href="./index.html">Home</a>
         <a href="./mixer.html">Mixer Analysis</a>
         <a href="./transaction.html">Transaction Analysis</a>
         <!-- <button class="getstarted" id="getstarted2">Get Started</button> -->
@@ -60,6 +60,6 @@
             </div>
         </article>
     </section>
-    <script type="module" src="../assets/js/illicit.js"></script>
+    <script type="module" src="{% static "assets/js/illicit.js"%}"></script>
 </body>
 </html>

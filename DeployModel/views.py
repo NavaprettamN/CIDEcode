@@ -68,7 +68,7 @@ def index(request):
     return render(request, "index.html")
 
 def transaction_page(request):
-    return render(request, "transactioon.html")
+    return render(request, "transaction.html")
 
 def mixer_page(request):
     return render(request, "mixer.html")
