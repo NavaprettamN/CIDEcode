@@ -35,16 +35,27 @@ def illicit_page(request):
         print(request, "2nd one")
         txid = request.GET['txid']
         txid_data = get_transaction_data(txid)
-        vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
 
-        print(vin, vout)
+        # vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
+        # print(type(txid_data['inputs']))
+        bin,bout=0,0
+        for i in txid_data['inputs']:
+            bin += i['prev_out']['value']
+            bin /= 100000
+        for i in txid_data['out']:
+            bout += i['value']
+            bout /= 100000
+        
+        print(bin, bout)
+
+        # print(vin, vout)
 
         model = joblib.load('illicit_model_v001.sav')
 
         model_result = model.predict([[4, 3, 4.939574, 5.788070]])[0]
         # print(model_result)
 
-
+        # supabase txid, vin, vout, bin, bout, 
         return render(request, "illicit.html", {'vin': vin, 'vout': vout, 'illicit': model_result})
 
     return render(request, "illicit.html")
