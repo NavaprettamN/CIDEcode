@@ -142,4 +142,4 @@ def get_transaction_data(transaction_hash):
 def index(request):
     response0 = supabase.table('illicit').select("*").eq('illicit', '0').execute()
     response1 = supabase.table('illicit').select("*").eq('illicit', '1').execute()
-    return render(request, "index.html", {"illicit": len(response0['data']), "licit": len(response1['data'])})
+    return render(request, "index.html", {"licit": len(response0['data']), "illicit": len(response1['data'])})
