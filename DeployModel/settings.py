@@ -75,8 +75,8 @@ WSGI_APPLICATION = "DeployModel.wsgi.application"
 
 
 SUPABASE = {
-    'URL': 'https://jbxwmefylhjinddezouk.supabase.co',
-    'API_KEY': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpieHdtZWZ5bGhqaW5kZGV6b3VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg1NzE5NjcsImV4cCI6MjAyNDE0Nzk2N30.-F5-r5UZDXUvSB-UawcQQxkHoo7E3qqnxrtRTxLM41Y',
+    'URL': 'https://hotqztzexkqnxtrfeany.supabase.co',
+    'API_KEY': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvdHF6dHpleGtxbnh0cmZlYW55Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkzNTcyMzcsImV4cCI6MjAyNDkzMzIzN30.nWHwuaAN69VPLGOwaGUqQWVDed85anHx0xB-CE30y78',
 }
 
 

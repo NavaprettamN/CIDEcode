@@ -48,7 +48,7 @@ def illicit_page(request):
             bout += i['value']
             bout /= 100000
         
-        print(bin, bout)
+        # print(bin, bout)
 
         # print(vin, vout)
 
@@ -56,7 +56,6 @@ def illicit_page(request):
 
         model_result = model.predict([[vin, vout, bin, bout]])[0]
         # print(model_result)
-
         # supabase txid, vin, vout, bin, bout, 
         txid_string = str(txid)
         print(type(txid_string))
