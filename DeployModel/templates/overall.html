@@ -1,11 +1,51 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Overall Analysis</title>
+    <link rel="stylesheet" href="{% static "assets/css/illicit.css"%}">
 </head>
 <body>
-    
+    <nav>
+        <h1>C R E W</h1>
+        <div class="links" id="links">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{%url 'mixer'%}">Mixer Analysis</a>
+            <a href="{%url 'transaction' %}">Transaction Analysis</a>
+            <a href="{%url 'illicit' %}">Illicit Analysis</a>
+            <!-- <button class="getstarted" id="getstarted1">Get Started</button> -->
+        </div>
+        <button class="hamburger" id="hamburger">
+            <img src="{% static "assets/vectors/landing/cryptocurrency.gif"%}" alt="hamburger">
+        </button>
+    </nav>
+    <div class="links dropdownnav" id="dropdownnav">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'mixer'%}">Mixer Analysis</a>
+        <a href="{% url 'transaction' %}">Transaction Analysis</a>
+        <a href="{% url 'illicit' %}">illicit Analysis</a>
+        <!-- <button class="getstarted" id="getstarted2">Get Started</button> -->
+    </div>
+    <section class="content" id="content">
+        <h1>Overall Analysis</h1>
+        <br>
+        <article class="illicit">
+            <form class="data" action="{% url 'overall'%}">
+                {% csrf_token %}
+                <label for="wa1">Wallet Address 1</label>
+                <input type="text" placeholder="Enter addr1..." id="wa1" name="hash">
+            </form>
+            <div class="output">
+                <p>
+                    {% comment %} what i need in this is : txid, vin, vout, illicit {% endcomment %}
+
+                    {{ illicit }}
+                </p>
+            </div>
+        </article>
+    </section>
+    <script type="module" src="{% static "assets/js/illicit.js"%}"></script>
 </body>
 </html>
