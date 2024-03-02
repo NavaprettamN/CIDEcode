@@ -4,6 +4,7 @@ import joblib
 from supabase_py import create_client
 import requests
 import pprint
+import re
 # import os
 
 
@@ -87,24 +88,23 @@ def mixer_page(request):
 
     return render(request, "mixer.html")
 
+# overall model {txid/block_hash/wallet_hash -> }
 
+def overall_analaysis_page(request):
+    if request.GET != {}:
+        bitcoin_address_pattern = re.compile(r'^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$')
+        block_hash_pattern = re.compile(r'^0000000[0-9a-fA-F]{57}$')
+        transaction_hash_pattern = re.compile(r'^[0-9a-fA-F]{64}$')
+        if bitcoin_address_pattern.match(hash):
+            print("it is a address", hash)
+        if block_hash_pattern.match(hash):
+            print("it is a block hash", hash)
+        if transaction_hash_pattern.match(hash):
+            print("it is a txhash", hash)
+            
+        return render(request, 'overal.html')
 
-def result(request):
-    cls = joblib.load('illicit_model_v001.sav')
-
-    value_in_String = request.GET['txid']
-    value_in_int = int(value_in_String)
-    value_in_array = [float(value) for value in value_in_String.split(',')]
-    print(value_in_int)
-    response = supabase.table('mainTable').select("risk").eq('txid', value_in_String).execute()
-    data = response['data']
-
-    block_chain = blockApi(value_in_int)
-    # Process the data as needed
-    print(data)
-
-    return render(request, "result.html", {'ans': data})
-
+    return render(request, 'overall.html')
 
 def blockApi(block_hash):
     api_url = f'https://blockchain.info/rawblock/{block_hash}'
