@@ -21,10 +21,11 @@ def transaction_page(request):
         print(request, "2nd one")
         txid = request.GET['txid']
         txid_data = get_transaction_data(txid)
+        print(txid_data)
         vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
 
         print(vin, vout)
-        return render(request, "transaction.html", {vin: vin, vout: "vout"})
+        return render(request, "transaction.html", {'vin': vin, 'vout': vout})
 
     return render(request, "transaction.html")
 
@@ -37,7 +38,14 @@ def illicit_page(request):
         vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
 
         print(vin, vout)
-        return render(request, "illicit.html", {vin: vin, vout: "vout"})
+
+        model = joblib.load('illicit_model_v001.sav')
+
+        model_result = model.predict([[4, 3, 4.939574, 5.788070]])[0]
+        # print(model_result)
+
+
+        return render(request, "illicit.html", {'vin': vin, 'vout': vout, 'illicit': model_result})
 
     return render(request, "illicit.html")
 
