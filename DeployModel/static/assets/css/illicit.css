@@ -156,13 +156,15 @@ nav h1 {
     align-items: center;
     gap: 10px;
 }
+
 .data div {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     min-width: 30vw;
 }
+
 .output {
     width: 35vw;
     height: 60vh;
@@ -200,8 +202,9 @@ button {
     background-color: transparent;
     border: none;
 }
+
 .searchbtn {
-    min-width: 4vh;
+    width: 2vw;
     height: auto;
     cursor: pointer;
 }
