@@ -222,3 +222,20 @@ def index(request):
     response0 = supabase.table('illicit').select("*").eq('illicit', '0').execute()
     response1 = supabase.table('illicit').select("*").eq('illicit', '1').execute()
     return render(request, "index.html", {"licit": len(response0['data']), "illicit": len(response1['data'])})
+
+def get_single_address_data(addr):
+    api_url = 'https://blockchain.info/rawaddr/{addr}'
+
+    try:
+        response = requests.get(api_url)
+        response.raise_for_status()
+        data = response.json()
+        return data
+    except requests.exceptions.HTTPError as errh:
+        print(f"HTTP Error: {errh}")
+    except requests.exceptions.ConnectionError as errc:
+        print(f"Error Connecting: {errc}")
+    except requests.exceptions.Timeout as errt:
+        print(f"Timeout Error: {errt}")
+    except requests.exceptions.RequestException as err:
+        print(f"An unexpected error occurred: {err}")
