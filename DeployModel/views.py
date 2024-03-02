@@ -9,7 +9,6 @@ import pprint
 
 supabase_url = 'https://hotqztzexkqnxtrfeany.supabase.co'
 supabase_api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvdHF6dHpleGtxbnh0cmZlYW55Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkzNTcyMzcsImV4cCI6MjAyNDkzMzIzN30.nWHwuaAN69VPLGOwaGUqQWVDed85anHx0xB-CE30y78'
-
 supabase = create_client(supabase_url, supabase_api_key)
 
 # view for transaction block {txid -> txid, vin, vout, addresses, bin, bout, (check illicit)->/illicit/txid}
@@ -24,7 +23,9 @@ def transaction_page(request):
         print(txid_data)
         vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
         print(vin, vout)
-        
+        sender_adresses = []
+        receiver_addresses = []
+        # for i in 
         return render(request, "transaction.html", {'vin': vin, 'vout': vout})
 
     return render(request, "transaction.html")
@@ -50,13 +51,17 @@ def illicit_page(request):
         print(bin, bout)
 
         # print(vin, vout)
+
         model = joblib.load('illicit_model_v001.sav')
 
         model_result = model.predict([[vin, vout, bin, bout]])[0]
         # print(model_result)
-        data, count = supabase.table('Illicit').insert({"tx_id": txid, "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
-        print(data, count)
+
         # supabase txid, vin, vout, bin, bout, 
+        txid_string = str(txid)
+        print(type(txid_string))
+        data, count = supabase.table('Illicit').insert({"tx_id": "something", "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
+        print(data, count)
         return render(request, "illicit.html", {'vin': vin, 'vout': vout, 'illicit': model_result})
 
     return render(request, "illicit.html")
