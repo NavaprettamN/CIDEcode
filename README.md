@@ -9,7 +9,8 @@ nava:
 - retrive supabase variables
 
 pranav:
-- IP 
+- IP
+  
 pooja:
 - model
 - dataset
