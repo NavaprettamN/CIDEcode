@@ -179,6 +179,35 @@ input {
     border-radius: 12px;
 }
 
+.displaytext {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.displaytext p {
+    background-color: white;
+    color: black;
+    width: 15vw;
+    border-radius: 2vw;
+    padding: 12px;
+    text-align: center;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+}
+.searchbtn {
+    min-width: 4vh;
+    height: auto;
+    cursor: pointer;
+}
+
+
+
 @media screen and (max-width: 550px) {
 
     .links {
