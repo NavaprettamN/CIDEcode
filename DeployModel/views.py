@@ -17,7 +17,6 @@ def transaction_page(request):
     print(request.GET == {})
     if request.GET != {}:
         # here do the checking of txid (api call -> store data -> data to model -> value of risk)
-        print(request, "2nd one")
         txid = request.GET['txid']
         txid_data = get_transaction_data(txid)
         print(txid_data)
@@ -25,8 +24,19 @@ def transaction_page(request):
         print(vin, vout)
         sender_adresses = []
         receiver_addresses = []
-        # for i in 
-        return render(request, "transaction.html", {'vin': vin, 'vout': vout})
+        for i in txid_data['inputs']:
+            sender_adresses.append(i['prev_out']['addr'])
+        for i in txid_data['out']:
+            receiver_addresses.append(i['addr'])
+        bin,bout=0,0
+        for i in txid_data['inputs']:
+            bin += i['prev_out']['value']
+            bin /= 100000
+        for i in txid_data['out']:
+            bout += i['value']
+            bout /= 100000
+        print(sender_adresses, receiver_addresses)
+        return render(request, "transaction.html", {'txid': txid,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses})
 
     return render(request, "transaction.html")
 
@@ -61,7 +71,7 @@ def illicit_page(request):
         # supabase txid, vin, vout, bin, bout, 
         data, count = supabase.table('illicit').insert({"tx_id": txid, "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
         # print(data[0], count)
-        return render(request, "illicit.html", {'vin': vin, 'vout': vout, 'illicit': model_result})
+        return render(request, "illicit.html", {'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'illicit': model_result})
 
     return render(request, "illicit.html")
 
