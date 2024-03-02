@@ -105,13 +105,37 @@ def overall_analaysis_page(request):
             total_received = data['total_received']
             return render(request, 'overall.html', {'balance': balance, 'n_tx': n_tx, 'total_received': total_received})
         
+        # block hash
         elif block_hash_pattern.match(hash):
             print("it is a block hash", hash)
-            # data = 
+            data = get_block_data(hash)
+            version = data['version']
+            three_transactions = []
+            for i in data['tx']:
+                three_transactions.append(i)
+            return render(request, 'overall.html', {'ver':version, 'three_transactions':three_transactions})
+        # transaction hash
         else:
+            vin, vout = data['vin_sz'], data['vout_sz']
+            sender_adresses = []
+            receiver_addresses = []
+            for i in data['inputs']:
+                sender_adresses.append(i['prev_out']['addr'])
+            for i in data['out']:
+                receiver_addresses.append(i['addr'])
+            bin,bout=0,0
+            for i in data['inputs']:
+                bin += i['prev_out']['value']
+                bin /= 100000
+            for i in data['out']:
+                bout += i['value']
+                bout /= 100000
             print("it is a txhash", hash)
-        return render(request, 'overall.html')
-    return render(request, 'overall.html')
+            return render(request, "transaction.html", {'txid': hash,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses})
+
+        # return render(request, 'overall.html')
+    # return render(request, 'overall.html')
+
 
 
 # block hash api
@@ -176,6 +200,11 @@ def get_balance_data(wallet_address):
 # this is the other api calls from cryptoapis : 
 
 # get balance data
+<<<<<<< HEAD
+=======
+
+# def crypto_get_balance_data(wallet_address):
+>>>>>>> 1c446d842d2fc94976d63047becd7c7de3de8657
     
 
 def index(request):
