@@ -159,9 +159,19 @@ nav h1 {
 .data div {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     min-width: 30vw;
+    gap: 10px;
+}
+.data div button {
+    background: transparent;
+    border: none;
+}
+.searchbtn {
+    width: 2vw;
+    height: auto;
+    cursor: pointer;
 }
 .output {
     width: 35vw;
