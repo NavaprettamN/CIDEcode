@@ -54,13 +54,13 @@ def illicit_page(request):
 
         model = joblib.load('illicit_model_v001.sav')
 
-        model_result = model.predict([[vin, vout, bin, bout]])[0]
-        # print(model_result)
+        model_result = int(model.predict([[vin, vout, bin, bout]])[0])
+        print(type(model_result))
+        
+        # data, count = supabase.table('illicit').insert({"tx_id": txid, "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
         # supabase txid, vin, vout, bin, bout, 
-        txid_string = str(txid)
-        print(type(txid_string))
-        data, count = supabase.table('Illicit').insert({"tx_id": "something", "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
-        print(data, count)
+        data, count = supabase.table('illicit').insert({"tx_id": txid, "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
+        # print(data[0], count)
         return render(request, "illicit.html", {'vin': vin, 'vout': vout, 'illicit': model_result})
 
     return render(request, "illicit.html")
