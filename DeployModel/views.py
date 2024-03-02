@@ -98,12 +98,14 @@ def overall_analaysis_page(request):
 
         # wallet addresss
         if bitcoin_address_pattern.match(hash):
-            print("it is a wallet address", hash)
+            print("It is a wallet address", hash)
             data = get_balance_data(hash)
-            balance = data['final_balance']
-            n_tx = data['n_tx']
-            total_received = data['total_received']
-            return render(request, 'overall.html', {'balance': balance, 'n_tx': n_tx, 'total_received': total_received})
+            print(data)
+            # n_tx = data['n_tx']
+            # total_sent = data['total_sent']
+            # total_received = data['total_received']
+            # balance = data['final_balance']
+            return render(request, 'overall.html', {'val': 3, 'balance': balance, 'n_tx': n_tx, 'total_received': total_received, 'total_sent': total_sent})
         
         # block hash
         elif block_hash_pattern.match(hash):
@@ -114,8 +116,9 @@ def overall_analaysis_page(request):
             for i in data['tx']:
                 three_transactions.append(i)
             return render(request, 'overall.html', {'ver':version, 'three_transactions':three_transactions})
+        
         # transaction hash
-        else:
+        elif transaction_hash_pattern.match(hash):
             vin, vout = data['vin_sz'], data['vout_sz']
             sender_adresses = []
             receiver_addresses = []
@@ -131,10 +134,12 @@ def overall_analaysis_page(request):
                 bout += i['value']
                 bout /= 100000
             print("it is a txhash", hash)
-            return render(request, "transaction.html", {'txid': hash,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses})
-
-        # return render(request, 'overall.html')
-    # return render(request, 'overall.html')
+            return render(request, "overall.html", {'txid': hash,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses})
+        
+        else:
+            return render(request, 'overall.html', {'val': 4})
+    else:
+        return render(request, 'overall.html', {})
 
 
 
@@ -182,7 +187,7 @@ def get_transaction_data(transaction_hash):
 # balance api
 
 def get_balance_data(wallet_address):
-    api_url = 'https://blockchain.info/balance?active={wallet_address}'
+    api_url = f'https://blockchain.info/rawaddr/{wallet_address}'
     try:
         response = requests.get(api_url)
         response.raise_for_status()
