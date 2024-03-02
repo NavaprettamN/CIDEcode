@@ -5,6 +5,7 @@ from supabase_py import create_client
 import requests
 import pprint
 import re
+import time
 # import os
 
 
@@ -20,24 +21,24 @@ def transaction_page(request):
         # here do the checking of txid (api call -> store data -> data to model -> value of risk)
         txid = request.GET['txid']
         txid_data = get_transaction_data(txid)
+        time.sleep(5)
         # print(txid_data)
-        vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
-        # print(vin, vout)
-        sender_adresses = []
-        receiver_addresses = []
-        for i in txid_data['inputs']:
-            sender_adresses.append(i['prev_out']['addr'])
-        for i in txid_data['out']:
-            receiver_addresses.append(i['addr'])
-        bin,bout=0,0
-        for i in txid_data['inputs']:
-            bin += i['prev_out']['value']
-            bin /= 100000
-        for i in txid_data['out']:
-            bout += i['value']
-            bout /= 100000
-        
-        # this are extra variables for the exchange prediction {n -> number of transactions of the senders, total_sent -> total amount the sender sent}
+        if(txid_data):
+            vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
+            # print(vin, vout)
+            sender_adresses = []
+            receiver_addresses = []
+            for i in txid_data['inputs']:
+                sender_adresses.append(i['prev_out']['addr'])
+            for i in txid_data['out']:
+                receiver_addresses.append(i['addr'])
+            bin,bout=0,0
+            for i in txid_data['inputs']:
+                bin += i['prev_out']['value']
+                bin /= 100000
+            for i in txid_data['out']:
+                bout += i['value']
+                bout /= 100000
             
         n = 0
         # for i in sender_adresses:
@@ -74,7 +75,6 @@ def illicit_page(request):
         # here do the checking of txid (api call -> store data -> data to model -> value of risk)
         txid = request.GET['txid']
         txid_data = get_transaction_data(txid)
-
         vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
         # print(type(txid_data['inputs']))
         bin,bout=0,0
@@ -84,16 +84,11 @@ def illicit_page(request):
         for i in txid_data['out']:
             bout += i['value']
             bout /= 100000
-        
-        # print(bin, bout)
-
-        # print(vin, vout)
 
         model = joblib.load('illicit_model_v001.sav')
 
         model_result = int(model.predict([[vin, vout, bin, bout]])[0])
         
-        # data, count = supabase.table('illicit').insert({"tx_id": txid, "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
         # supabase txid, vin, vout, bin, bout, 
         data, count = supabase.table('illicit').insert({"tx_id": txid, "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
         # print(data[0], count)
@@ -119,49 +114,55 @@ def mixer_page(request):
 def overall_analaysis_page(request):
     if request.GET != {}:
         hash = request.GET['hash']
-        bitcoin_address_pattern = re.compile(r'^[a-km-zA-HJ-NP-Z1-9]*$')
+        bitcoin_address_pattern = re.compile(r'^[13][a-km-zA-HJ-NP-Z1-9]*$')
         block_hash_pattern = re.compile(r'^0000000[0-9a-fA-F]*$')
         transaction_hash_pattern = re.compile(r'^[0-9a-f]*$')
-
+        
         # wallet addresss
-        if bitcoin_address_pattern.match(hash):
+        if  bitcoin_address_pattern.match(hash):
             print("It is a wallet address", hash)
             data = get_balance_data(hash)
-            print(data)
-            # n_tx = data['n_tx']
-            # total_sent = data['total_sent']
-            # total_received = data['total_received']
-            # balance = data['final_balance']
-            return render(request, 'overall.html', {'val': 3, 'balance': balance, 'n_tx': n_tx, 'total_received': total_received, 'total_sent': total_sent})
+            if(data):
+                n_tx = data['n_tx']
+                total_sent = data['total_sent']
+                total_received = data['total_received']
+                balance = data['final_balance']
+                return render(request, 'overall.html', {'val': 3, 'balance': balance, 'n_tx': n_tx, 'total_received': total_received, 'total_sent': total_sent})
+            else: return render(request, 'overall.html')
         
         # block hash
         elif block_hash_pattern.match(hash):
             print("it is a block hash", hash)
             data = get_block_data(hash)
-            version = data['version']
-            three_transactions = []
-            for i in data['tx']:
-                three_transactions.append(i)
-            return render(request, 'overall.html', {'ver':version, 'three_transactions':three_transactions})
+            if data:
+                n_tx = data['n_tx']
+                three_transactions = []
+                for i in range(3):
+                    three_transactions.append(data['tx'][i]['hash'])
+                return render(request, 'overall.html', {'val':2,'n_tx': n_tx, 'three_transactions':three_transactions})
+            else: return render(request, 'overall.html')
         
         # transaction hash
         elif transaction_hash_pattern.match(hash):
-            vin, vout = data['vin_sz'], data['vout_sz']
-            sender_adresses = []
-            receiver_addresses = []
-            for i in data['inputs']:
-                sender_adresses.append(i['prev_out']['addr'])
-            for i in data['out']:
-                receiver_addresses.append(i['addr'])
-            bin,bout=0,0
-            for i in data['inputs']:
-                bin += i['prev_out']['value']
-                bin /= 100000
-            for i in data['out']:
-                bout += i['value']
-                bout /= 100000
-            print("it is a txhash", hash)
-            return render(request, "overall.html", {'txid': hash,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses})
+            data = get_transaction_data(hash)
+            if data:
+                vin, vout = data['vin_sz'], data['vout_sz']
+                sender_adresses = []
+                receiver_addresses = []
+                for i in data['inputs']:
+                    sender_adresses.append(i['prev_out']['addr'])
+                for i in data['out']:
+                    receiver_addresses.append(i['addr'])
+                bin,bout=0,0
+                for i in data['inputs']:
+                    bin += i['prev_out']['value']
+                    bin /= 100000
+                for i in data['out']:
+                    bout += i['value']
+                    bout /= 100000
+                print("it is a txhash", hash)
+                return render(request, "overall.html", {'val':1, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses})
+            else: return render(request, "overall.html")
         
         else:
             return render(request, 'overall.html', {'val': 4})
@@ -179,7 +180,6 @@ def get_block_data(block_hash):
         response.raise_for_status()
         block_data = response.json()
         return block_data
-
     except requests.exceptions.HTTPError as errh:
         print(f"HTTP Error: {errh}")
     except requests.exceptions.ConnectionError as errc:
@@ -196,9 +196,7 @@ def get_transaction_data(transaction_hash):
     
     try:
         response = requests.get(api_url)
-        response.raise_for_status()  # Check for HTTP errors
-
-        # If the request was successful, you can access the data using response.json()
+        response.raise_for_status()  
         transaction_data = response.json()
         return transaction_data
 
@@ -229,11 +227,17 @@ def get_balance_data(wallet_address):
     except requests.exceptions.RequestException as err:
         print(f"An unexpected error occurred: {err}")
 
-# api call for single address
+# this is the other api calls from cryptoapis : 
+
+# get balance data
+
+def index(request):
+    response0 = supabase.table('illicit').select("*").eq('illicit', '0').execute()
+    response1 = supabase.table('illicit').select("*").eq('illicit', '1').execute()
+    return render(request, "index.html", {"licit": len(response0['data']), "illicit": len(response1['data'])})
 
 def get_single_address_data(addr):
-    api_url = 'https://blockchain.info/rawaddr/{addr}'
-
+    api_url = f'https://blockchain.info/rawaddr/{addr}'
     try:
         response = requests.get(api_url)
         response.raise_for_status()
