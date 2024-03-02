@@ -205,7 +205,6 @@ def get_balance_data(wallet_address):
 # this is the other api calls from cryptoapis : 
 
 # get balance data
-    
 
 def index(request):
     response0 = supabase.table('illicit').select("*").eq('illicit', '0').execute()
