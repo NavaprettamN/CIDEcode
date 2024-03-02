@@ -31,20 +31,11 @@
     <section class="content" id="content">
         <h1>Overall Analysis</h1>
         <br>
-        <article class="illicit">
-            <form class="data" action="{% url 'overall'%}">
-                {% csrf_token %}
-                <label for="wa1">Wallet Address 1</label>
-                <input type="text" placeholder="Enter addr1..." id="wa1" name="hash">
-            </form>
-            <div class="output">
-                <p>
-                    {% comment %} what i need in this is : txid, vin, vout, illicit {% endcomment %}
-
-                    {{ illicit }}
-                </p>
-            </div>
-        </article>
+        <form action="{% url 'overall'%}">
+            {% csrf_token %}
+            <label for="wa1">Wallet Address 1</label>
+            <input type="text" placeholder="Enter addr1..." id="wa1" name="hash">
+        </form>
     </section>
     <script type="module" src="{% static "assets/js/illicit.js"%}"></script>
 </body>
