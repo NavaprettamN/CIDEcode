@@ -14,7 +14,6 @@
             <a href="{% url 'index' %}">Home</a>
             <a href="{% url 'mixer' %}">Mixer Analysis</a>
             <a href="{% url 'illicit' %}"> Illicit Transaction</a>
-            <!-- <button class="getstarted" id="getstarted1">Get Started</button> -->
         </div>
         <button class="hamburger" id="hamburger">
             <img src="{% static "assets/vectors/landing/cryptocurrency.gif" %}" alt="hamburger">
@@ -24,7 +23,6 @@
         <a href="{% url 'index' %}">Home</a>
         <a href="{% url 'mixer' %}">Mixer Analysis</a>
         <a href="{% url 'illicit' %}"> Illicit Transaction</a>
-        <!-- <button class="getstarted" id="getstarted2">Get Started</button> -->
     </div>
     <section class="content" id="content">
         <h1>Transaction Analysis</h1>
@@ -33,19 +31,34 @@
             <form class="searchtransaction" action="{% url "transaction" %}">
                 {% csrf_token %}
                 <input type="text" placeholder="Enter transaction ID..." id="searchbar" name="txid">
-                <img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchtransaction" type="submit">
+                <button type="submit"><img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchtransaction" type="submit"></button>
                 
             </form>
-           <!-- <div class="line-separator" id="line-separator"></div> -->
-           <form class="searchwallet">
+           {% comment %} <form class="searchwallet">
                 <input type="text" placeholder="Enter wallet Address..." id="searchbar">
                 <img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchwallet">
                 
-           </form>
+           </form> {% endcomment %}
             <div class="output_container">
-                <p>
-                    {{ vin }}{{vout}}
-                </p>
+                {% comment %} 'txid': txid,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses} {% endcomment %}
+                <div class="displaytext">
+                    <p>Tx_id</p>
+                    <p>Vin</p>
+                    <p>Vout</p>
+                    <p>Bin</p>
+                    <p>Bout</p>
+                    <p>Sender</p>
+                    <p>Reciever</p>
+                </div>
+                <div class="displayval">
+                    <p>{{txid}}</p>
+                    <p>{{vin}}</p>
+                    <p>{{vout}}</p>
+                    <p>{{bin}}</p>
+                    <p>{{bout}}</p>
+                    <p>{% for i in sender_addresses %} {{i}} {% endfor %}</p>
+                    <p>{% for i in receiver_addresses %} {{i}} {% endfor %}</p>
+                </div>
             </div>
         </article>
     </section>
