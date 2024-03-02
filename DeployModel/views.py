@@ -40,14 +40,27 @@ def transaction_page(request):
         # this are extra variables for the exchange prediction {n -> number of transactions of the senders, total_sent -> total amount the sender sent}
             
         n = 0
-        for i in sender_adresses:
-            n+=get_single_address_data(i)['n_tx']
+        # for i in sender_adresses:
+        #     m=get_single_address_data(i)
+        #     n+=m['n_tx']
+        # total_sent = 0
+        # for i in sender_adresses:
+        #     ts=get_single_address_data(i)
+        #     total_sent+=m['total_sent']
 
-        total_sent = 0
-        for i in sender_adresses:
-            total_sent+=get_single_address_data(i)['total_sent']
         
-        print(n, total_sent)
+        data_api = get_sender_data(txid)
+        # m = get_single_address_data(sender_adresses[0])
+        # n = m['n_tx']
+        # total_sent = m['total_sent']
+        
+        print(n, data_api)
+
+        exchange_model = joblib.load('exchange_v001.sav')
+
+
+        x = exchange_model.predict([[9, 10, 6.660171, 3.256691, 13, 4546.74]])
+        print(x)
         return render(request, "transaction.html", {'txid': txid,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses})
 
         
@@ -235,6 +248,23 @@ def get_single_address_data(addr):
     except requests.exceptions.RequestException as err:
         print(f"An unexpected error occurred: {err}")
 # this is the other api calls from cryptoapis : 
+
+def get_sender_data(hash):
+    url = "https://rest.cryptoapis.io/blockchain-data/bitcoin/testnet/transactions/4b66461bf88b61e1e4326356534c135129defb504c7acb2fd6c92697d79eb250"
+    querystring = {"context": "yourExampleString"}
+    headers = {
+        'Content-Type': 'application/json',
+        'X-API-Key': '4b72fd58075695ceeb3887be8073d346a17f1618'
+    }
+    add = 0
+    response = requests.get(url, headers=headers, params=querystring)
+    # response.raise_for_status()
+    res = response.json()
+    print(res)
+    for i in res['data']['item']['recipients']:
+        add += float(i['amount'])
+
+    return add
 
 # get balance data
 
