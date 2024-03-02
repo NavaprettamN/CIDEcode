@@ -10,4 +10,5 @@ urlpatterns = [
     path("mixer/", views.mixer_page, name='mixer'),
     path("illicit/", views.illicit_page, name='illicit'),
     path("transaction/", views.transaction_page, name='transaction'),
+    path("overall/", views.overall_analaysis_page, name='overall'),
 ]

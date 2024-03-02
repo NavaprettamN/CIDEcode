@@ -92,17 +92,19 @@ def mixer_page(request):
 
 def overall_analaysis_page(request):
     if request.GET != {}:
-        bitcoin_address_pattern = re.compile(r'^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$')
-        block_hash_pattern = re.compile(r'^0000000[0-9a-fA-F]{57}$')
-        transaction_hash_pattern = re.compile(r'^[0-9a-fA-F]{64}$')
+        bitcoin_address_pattern = re.compile(r'^[13][a-km-zA-HJ-NP-Z1-9]*$')
+        block_hash_pattern = re.compile(r'^0000000[0-9a-fA-F]*$')
+        transaction_hash_pattern = re.compile(r'^[0-9a-f]*$')
         if bitcoin_address_pattern.match(hash):
             print("it is a address", hash)
+            
         if block_hash_pattern.match(hash):
             print("it is a block hash", hash)
         if transaction_hash_pattern.match(hash):
             print("it is a txhash", hash)
-            
-        return render(request, 'overal.html')
+
+
+        return render(request, 'overall.html')
 
     return render(request, 'overall.html')
 
