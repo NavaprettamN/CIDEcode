@@ -56,7 +56,7 @@ def illicit_page(request):
         model_result = model.predict([[4, 3, 4.939574, 5.788070]])[0]
         # print(model_result)
         data, count = supabase.table('Illicit').insert({"tx_id": txid, "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
-        print(data)
+        print(data, count)
         # supabase txid, vin, vout, bin, bout, 
         return render(request, "illicit.html", {'vin': vin, 'vout': vout, 'illicit': model_result})
 
