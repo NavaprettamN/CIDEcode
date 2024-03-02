@@ -141,4 +141,6 @@ def get_transaction_data(transaction_hash):
         print(f"An unexpected error occurred: {err}")
 
 def index(request):
-    return render(request, "index.html")
+    response0 = supabase.table('illicit').select("*").eq('illicit', '0').execute()
+    response1 = supabase.table('illicit').select("*").eq('illicit', '1').execute()
+    return render(request, "index.html", {"illicit": len(response0['data']), "licit": len(response1['data'])})
