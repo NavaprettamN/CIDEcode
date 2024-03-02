@@ -11,9 +11,9 @@
     <nav>
         <h1>C R E W</h1>
         <div class="links" id="links">
-            <a href="./index.html">Home</a>
-            <a href="./transaction.html">Transaction Analysis</a>
-            <a href="./illicit.html">Illicit Transactions</a>
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'transaction' %}">Transaction Analysis</a>
+            <a href="{% url 'illicit' %}">Illicit Transactions</a>
             <!-- <button class="getstarted" id="getstarted1">Get Started</button> -->
         </div>
         <button class="hamburger" id="hamburger">
@@ -21,9 +21,9 @@
         </button>
     </nav>
     <div class="links dropdownnav" id="dropdownnav">
-        <a href="./index.html">Home</a>
-            <a href="./transaction.html">Transaction Analysis</a>
-            <a href="./illicit.html">Illicit Transactions</a>
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'transaction' %}">Transaction Analysis</a>
+        <a href="{% url 'illicit' %}">Illicit Transactions</a>
         <!-- <button class="getstarted" id="getstarted2">Get Started</button> -->
     </div>
     <section class="content" id="content">

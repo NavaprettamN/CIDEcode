@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap');
 
 * {
     margin: 0;
@@ -225,6 +226,46 @@ nav h1 {
 }
 
 
+/* Our Analysis */
+
+#analysis {
+    font-size: 5vw;
+}
+
+.analysis-data {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10vw;
+}
+
+.analysis-count {
+    width: 20vw;
+    height: 30vh;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 2vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.analysis-count h1 {
+    font-family: 'Kode Mono';
+    font-size: 2vw;
+}
+
+
+/* Counter */
+.count  {
+    font-size: 3vw;
+    font-family: 'Kode Mono', monospace;
+}
 @media screen and (max-width: 550px) {
 
     .links {
