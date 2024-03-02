@@ -7,8 +7,8 @@ import pprint
 # import os
 
 
-supabase_url = 'https://jbxwmefylhjinddezouk.supabase.co'
-supabase_api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpieHdtZWZ5bGhqaW5kZGV6b3VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg1NzE5NjcsImV4cCI6MjAyNDE0Nzk2N30.-F5-r5UZDXUvSB-UawcQQxkHoo7E3qqnxrtRTxLM41Y'
+supabase_url = 'https://hotqztzexkqnxtrfeany.supabase.co'
+supabase_api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvdHF6dHpleGtxbnh0cmZlYW55Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkzNTcyMzcsImV4cCI6MjAyNDkzMzIzN30.nWHwuaAN69VPLGOwaGUqQWVDed85anHx0xB-CE30y78'
 
 supabase = create_client(supabase_url, supabase_api_key)
 
@@ -50,12 +50,12 @@ def illicit_page(request):
         print(bin, bout)
 
         # print(vin, vout)
-
         model = joblib.load('illicit_model_v001.sav')
 
         model_result = model.predict([[vin, vout, bin, bout]])[0]
         # print(model_result)
-
+        data, count = supabase.table('Illicit').insert({"tx_id": txid, "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
+        print(data)
         # supabase txid, vin, vout, bin, bout, 
         return render(request, "illicit.html", {'vin': vin, 'vout': vout, 'illicit': model_result})
 
