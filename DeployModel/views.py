@@ -36,7 +36,21 @@ def transaction_page(request):
         for i in txid_data['out']:
             bout += i['value']
             bout /= 100000
+        
+        # this are extra variables for the exchange prediction {n -> number of transactions of the senders, total_sent -> total amount the sender sent}
+            
+        n = 0
+        for i in sender_adresses:
+            n+=get_single_address_data(i)['n_tx']
+
+        total_sent = 0
+        for i in sender_adresses:
+            total_sent+=get_single_address_data(i)['total_sent']
+        
+        print(n, total_sent)
         return render(request, "transaction.html", {'txid': txid,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses})
+
+        
 
     return render(request, "transaction.html")
 
@@ -92,7 +106,7 @@ def mixer_page(request):
 def overall_analaysis_page(request):
     if request.GET != {}:
         hash = request.GET['hash']
-        bitcoin_address_pattern = re.compile(r'^[13][a-km-zA-HJ-NP-Z1-9]*$')
+        bitcoin_address_pattern = re.compile(r'^[a-km-zA-HJ-NP-Z1-9]*$')
         block_hash_pattern = re.compile(r'^0000000[0-9a-fA-F]*$')
         transaction_hash_pattern = re.compile(r'^[0-9a-f]*$')
 
@@ -114,6 +128,7 @@ def overall_analaysis_page(request):
             for i in data['tx']:
                 three_transactions.append(i)
             return render(request, 'overall.html', {'ver':version, 'three_transactions':three_transactions})
+        
         # transaction hash
         else:
             vin, vout = data['vin_sz'], data['vout_sz']
@@ -197,6 +212,24 @@ def get_balance_data(wallet_address):
     except requests.exceptions.RequestException as err:
         print(f"An unexpected error occurred: {err}")
 
+# api call for single address
+
+def get_single_address_data(addr):
+    api_url = 'https://blockchain.info/rawaddr/{addr}'
+
+    try:
+        response = requests.get(api_url)
+        response.raise_for_status()
+        data = response.json()
+        return data
+    except requests.exceptions.HTTPError as errh:
+        print(f"HTTP Error: {errh}")
+    except requests.exceptions.ConnectionError as errc:
+        print(f"Error Connecting: {errc}")
+    except requests.exceptions.Timeout as errt:
+        print(f"Timeout Error: {errt}")
+    except requests.exceptions.RequestException as err:
+        print(f"An unexpected error occurred: {err}")
 # this is the other api calls from cryptoapis : 
 
 # get balance data
