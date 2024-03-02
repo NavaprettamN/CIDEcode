@@ -29,6 +29,8 @@ def transaction_page(request):
 
     return render(request, "transaction.html")
 
+# illicit page view
+
 def illicit_page(request):
     if request.GET != {}:
         # here do the checking of txid (api call -> store data -> data to model -> value of risk)
@@ -61,6 +63,17 @@ def illicit_page(request):
     return render(request, "illicit.html")
 
 
+# view for mixer
+
+def mixer_page(request):
+    if request.GET != {}:
+        txid = request.GET['txid']
+        txid_data = get_transaction_data(txid)
+
+        return render(request, "mixer,html")
+
+
+    return render(request, "mixer.html")
 
 
 
@@ -116,7 +129,3 @@ def get_transaction_data(transaction_hash):
 
 def index(request):
     return render(request, "index.html")
-
-def mixer_page(request):
-    return render(request, "mixer.html")
-
