@@ -12,7 +12,7 @@ supabase_api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
 
 supabase = create_client(supabase_url, supabase_api_key)
 
-# view for transaction block
+# view for transaction block {txid -> txid, vin, vout, addresses, bin, bout, (check illicit)->/illicit/txid}
 
 def transaction_page(request):
     print(request.GET == {})
@@ -23,8 +23,8 @@ def transaction_page(request):
         txid_data = get_transaction_data(txid)
         print(txid_data)
         vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
-
         print(vin, vout)
+        
         return render(request, "transaction.html", {'vin': vin, 'vout': vout})
 
     return render(request, "transaction.html")
@@ -34,7 +34,6 @@ def transaction_page(request):
 def illicit_page(request):
     if request.GET != {}:
         # here do the checking of txid (api call -> store data -> data to model -> value of risk)
-        print(request, "2nd one")
         txid = request.GET['txid']
         txid_data = get_transaction_data(txid)
 
@@ -53,7 +52,7 @@ def illicit_page(request):
         # print(vin, vout)
         model = joblib.load('illicit_model_v001.sav')
 
-        model_result = model.predict([[4, 3, 4.939574, 5.788070]])[0]
+        model_result = model.predict([[vin, vout, bin, bout]])[0]
         # print(model_result)
         data, count = supabase.table('Illicit').insert({"tx_id": txid, "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
         print(data, count)
