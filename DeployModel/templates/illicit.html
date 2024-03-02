@@ -33,7 +33,10 @@
             <form class="data" action="{% url 'illicit'%}">
                 {% csrf_token %}
                 <label for="wa1">Transaction ID</label>
-                <input type="text" placeholder="Enter addr1..." id="wa1" name="txid">
+                <div>
+                    <input type="text" placeholder="Enter addr1..." id="wa1" name="txid">
+                    <button type="submit"><img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchtransaction" type="submit"></button>
+                </div>
                 {% comment %} <button type="submit"><img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchtransaction" type="submit"></button> {% endcomment %}
             </form>
             <div class="output">

@@ -59,7 +59,7 @@ nav h1 {
 }
 
 /* 7fff00 */
-.links button {
+/* .links button {
     border-radius: 2vw;
     padding: 15px;
     cursor: pointer;
@@ -69,7 +69,7 @@ nav h1 {
     font-family: 'Poppins', sans-serif;
     font-weight: bolder;
     border: 2px solid white;
-}
+} */
 
 .links a {
     text-decoration: none;
@@ -121,7 +121,7 @@ nav h1 {
 .content {
     margin: 5% auto;
     width: 80vw;
-    height: 80vh;
+    height: 90vh;
     border-radius: 2vw;
     color: whitesmoke;
     padding: 12px;
@@ -194,9 +194,17 @@ input[type=text] {
     text-align: center;
 }
 
-button {
-    background-color: transparent;
-    border: none;
+.illicittransaction {
+    background-color: #fdcb50;
+    border: 2px solid white;
+    padding: 12px;
+    border-radius: 2vw;
+    z-index: 300;
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
 }
 
 @media screen and (max-width: 550px) {
@@ -233,6 +241,10 @@ button {
         min-width: 4vh;
         height: auto;
         cursor: pointer;
+    }
+
+    button {
+        background-color: transparent !important;
     }
 
     .output_container {

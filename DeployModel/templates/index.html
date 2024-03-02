@@ -23,10 +23,9 @@
     <nav>
         <h1>C R E W</h1>
         <div class="links" id="links">
-            <a href="#">Home</a>
-            <a href="#">About</a>
+            <a href="#about">About</a>
             <a href="#contact">Contact</a>
-            <a href="{% url 'overall' %}">Overall Analysis</a>
+            <a id="overall" href="{% url 'overall' %}">Overall Analysis</a>
             <button class="getstarted" id="getstarted1">Get Started</button>
         </div>
         <button class="hamburger" id="hamburger">
@@ -34,8 +33,7 @@
         </button>
     </nav>
     <div class="links dropdownnav" id="dropdownnav">
-        <a href="#">Home</a>
-        <a href="#">About</a>
+        <a href="#about">About</a>
         <a href="#contact">Contact</a>
         <button class="getstarted" id="getstarted2">Get Started</button>
     </div>
@@ -52,6 +50,20 @@
                 <button class="getstartedbutton" id="getstarted3">Get Started</button>
             </article>
             <img src="{% static "assets/vectors/landing/cryptocurrency.gif"%}" alt="cryptocurrency" class="cryptocurrency">
+        </section>
+        <section class="content" id="about">
+            <h1 id="analysis">Our Analysis</h1>
+            <br>
+            <section class="analysis-data">
+                <article class="analysis-count">
+                    <h1>Illicit Transactions</h1>
+                    <p class="count">{{illicit}}</p>
+                </article>
+                <article class="analysis-count">
+                    <h1>Licit Transactions</h1>
+                    <p class="count">{{licit}}</p>
+                </article>
+            </section>
         </section>
         <section class="content" id="content">
             <h1>Our Services</h1>
@@ -80,20 +92,6 @@
                 </div>
                 </a>
             </article>
-        </section>
-        <section class="content">
-            <h1 id="analysis">Our Analysis</h1>
-            <br>
-            <section class="analysis-data">
-                <article class="analysis-count">
-                    <h1>Illicit Transactions</h1>
-                    <p class="count">{{illicit}}</p>
-                </article>
-                <article class="analysis-count">
-                    <h1>Licit Transactions</h1>
-                    <p class="count">{{licit}}</p>
-                </article>
-            </section>
         </section>
         <section class="contact" id="contact">
 

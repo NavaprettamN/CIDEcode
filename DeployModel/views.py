@@ -15,7 +15,7 @@ supabase = create_client(supabase_url, supabase_api_key)
 # view for transaction block {txid -> txid, vin, vout, addresses, bin, bout, (check illicit)->/illicit/txid}
 
 def transaction_page(request):
-    print(request.GET == {})
+    # print(request.GET == {})
     if request.GET != {}:
         # here do the checking of txid (api call -> store data -> data to model -> value of risk)
         txid = request.GET['txid']
@@ -65,7 +65,6 @@ def illicit_page(request):
         model = joblib.load('illicit_model_v001.sav')
 
         model_result = int(model.predict([[vin, vout, bin, bout]])[0])
-        print(type(model_result))
         
         # data, count = supabase.table('illicit').insert({"tx_id": txid, "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
         # supabase txid, vin, vout, bin, bout, 
