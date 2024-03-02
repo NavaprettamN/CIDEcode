@@ -137,7 +137,7 @@ def overall_analaysis_page(request):
             if data:
                 n_tx = data['n_tx']
                 three_transactions = []
-                for i in range(3):
+                for i in range(8):
                     three_transactions.append(data['tx'][i]['hash'])
                 return render(request, 'overall.html', {'val':2,'n_tx': n_tx, 'three_transactions':three_transactions})
             else: return render(request, 'overall.html')
