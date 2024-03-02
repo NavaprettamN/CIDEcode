@@ -20,9 +20,9 @@ def transaction_page(request):
         # here do the checking of txid (api call -> store data -> data to model -> value of risk)
         txid = request.GET['txid']
         txid_data = get_transaction_data(txid)
-        print(txid_data)
+        # print(txid_data)
         vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
-        print(vin, vout)
+        # print(vin, vout)
         sender_adresses = []
         receiver_addresses = []
         for i in txid_data['inputs']:
@@ -36,7 +36,6 @@ def transaction_page(request):
         for i in txid_data['out']:
             bout += i['value']
             bout /= 100000
-        print(sender_adresses, receiver_addresses)
         return render(request, "transaction.html", {'txid': txid,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses})
 
     return render(request, "transaction.html")
@@ -141,4 +140,6 @@ def get_transaction_data(transaction_hash):
         print(f"An unexpected error occurred: {err}")
 
 def index(request):
-    return render(request, "index.html")
+    response0 = supabase.table('illicit').select("*").eq('illicit', '0').execute()
+    response1 = supabase.table('illicit').select("*").eq('illicit', '1').execute()
+    return render(request, "index.html", {"illicit": len(response0['data']), "licit": len(response1['data'])})
