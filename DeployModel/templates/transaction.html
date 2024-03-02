@@ -41,22 +41,22 @@
             <div class="output_container">
                 {% comment %} 'txid': txid,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses} {% endcomment %}
                 <div class="displaytext">
-                    <p>Tx_id</p>
-                    <p>Vin</p>
-                    <p>Vout</p>
-                    <p>Bin</p>
-                    <p>Bout</p>
-                    <p>Sender</p>
-                    <p>Reciever</p>
+                    <p>Transaction ID</p>
+                    <p>In Vertex</p>
+                    <p>Out Vertex</p>
+                    <p>Sender Address</p>
+                    <p>Sent Bitcoin Amount (BTC)</p>
+                    <p>Receiver Address</p>
+                    <p>Received Bitcoin Amount (BTC)</p>
                 </div>
                 <div class="displayval">
                     <p>{{txid}}</p>
                     <p>{{vin}}</p>
                     <p>{{vout}}</p>
-                    <p>{{bin}}</p>
-                    <p>{{bout}}</p>
                     <p>{% for i in sender_addresses %} {{i}} {% endfor %}</p>
+                    <p>{{bin}}</p>
                     <p>{% for i in receiver_addresses %} {{i}} {% endfor %}</p>
+                    <p>{{bout}}</p>
                 </div>
             </div>
         </article>
