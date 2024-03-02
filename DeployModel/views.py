@@ -96,16 +96,28 @@ def overall_analaysis_page(request):
         bitcoin_address_pattern = re.compile(r'^[13][a-km-zA-HJ-NP-Z1-9]*$')
         block_hash_pattern = re.compile(r'^0000000[0-9a-fA-F]*$')
         transaction_hash_pattern = re.compile(r'^[0-9a-f]*$')
+
+        # wallet addresss
         if bitcoin_address_pattern.match(hash):
             print("it is a wallet address", hash)
+            data = get_balance_data(hash)
+            balance = data['final_balance']
+            n_tx = data['n_tx']
+            total_received = data['total_received']
+            return render(request, 'overall.html', {'balance': balance, 'n_tx': n_tx, 'total_received': total_received})
+        
         elif block_hash_pattern.match(hash):
             print("it is a block hash", hash)
+            # data = 
         else:
             print("it is a txhash", hash)
         return render(request, 'overall.html')
     return render(request, 'overall.html')
 
-def blockApi(block_hash):
+
+# block hash api
+
+def get_block_data(block_hash):
     api_url = f'https://blockchain.info/rawblock/{block_hash}'
     try:
         response = requests.get(api_url)
@@ -113,10 +125,16 @@ def blockApi(block_hash):
         block_data = response.json()
         return block_data
 
-    except:
-        print("errors : ")
-        return None
-    
+    except requests.exceptions.HTTPError as errh:
+        print(f"HTTP Error: {errh}")
+    except requests.exceptions.ConnectionError as errc:
+        print(f"Error Connecting: {errc}")
+    except requests.exceptions.Timeout as errt:
+        print(f"Timeout Error: {errt}")
+    except requests.exceptions.RequestException as err:
+        print(f"An unexpected error occurred: {err}")
+
+# transaction api
 
 def get_transaction_data(transaction_hash):
     api_url = f'https://blockchain.info/rawtx/{transaction_hash}'
@@ -137,6 +155,31 @@ def get_transaction_data(transaction_hash):
         print(f"Timeout Error: {errt}")
     except requests.exceptions.RequestException as err:
         print(f"An unexpected error occurred: {err}")
+
+# balance api
+
+def get_balance_data(wallet_address):
+    api_url = 'https://blockchain.info/balance?active={wallet_address}'
+    try:
+        response = requests.get(api_url)
+        response.raise_for_status()
+        balance_data = response.json()
+        return balance_data
+    except requests.exceptions.HTTPError as errh:
+        print(f"HTTP Error: {errh}")
+    except requests.exceptions.ConnectionError as errc:
+        print(f"Error Connecting: {errc}")
+    except requests.exceptions.Timeout as errt:
+        print(f"Timeout Error: {errt}")
+    except requests.exceptions.RequestException as err:
+        print(f"An unexpected error occurred: {err}")
+
+# this is the other api calls from cryptoapis : 
+
+# get balance data
+
+def crypto_get_balance_data(wallet_address):
+    
 
 def index(request):
     response0 = supabase.table('illicit').select("*").eq('illicit', '0').execute()
