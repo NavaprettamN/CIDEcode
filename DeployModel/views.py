@@ -92,30 +92,31 @@ def mixer_page(request):
 def overall_analaysis_page(request):
     if request.GET != {}:
         hash = request.GET['hash']
-        bitcoin_address_pattern = re.compile(r'^[13][a-km-zA-HJ-NP-Z1-9]*$')
+        bitcoin_address_pattern = re.compile(r"^(bc1|[13])[a-km-zA-HJ-NP-Z1-9]{25,34}$")
         block_hash_pattern = re.compile(r'^0000000[0-9a-fA-F]*$')
         transaction_hash_pattern = re.compile(r'^[0-9a-f]*$')
-
+        
         # wallet addresss
-        if bitcoin_address_pattern.match(hash):
+        if  bitcoin_address_pattern.match(hash):
             print("It is a wallet address", hash)
             data = get_balance_data(hash)
             print(data)
-            # n_tx = data['n_tx']
-            # total_sent = data['total_sent']
-            # total_received = data['total_received']
-            # balance = data['final_balance']
+            n_tx = data['n_tx']
+            total_sent = data['total_sent']
+            total_received = data['total_received']
+            balance = data['final_balance']
             return render(request, 'overall.html', {'val': 3, 'balance': balance, 'n_tx': n_tx, 'total_received': total_received, 'total_sent': total_sent})
         
         # block hash
         elif block_hash_pattern.match(hash):
             print("it is a block hash", hash)
             data = get_block_data(hash)
-            version = data['version']
+            # version = 0
+            n_tx = data['n_tx']
             three_transactions = []
-            for i in data['tx']:
-                three_transactions.append(i)
-            return render(request, 'overall.html', {'ver':version, 'three_transactions':three_transactions})
+            for i in range(3):
+                three_transactions.append(data['tx'][i]['hash'])
+            return render(request, 'overall.html', {'val':2,'n_tx': n_tx, 'three_transactions':three_transactions})
         
         # transaction hash
         elif transaction_hash_pattern.match(hash):
@@ -152,7 +153,6 @@ def get_block_data(block_hash):
         response.raise_for_status()
         block_data = response.json()
         return block_data
-
     except requests.exceptions.HTTPError as errh:
         print(f"HTTP Error: {errh}")
     except requests.exceptions.ConnectionError as errc:
@@ -169,9 +169,7 @@ def get_transaction_data(transaction_hash):
     
     try:
         response = requests.get(api_url)
-        response.raise_for_status()  # Check for HTTP errors
-
-        # If the request was successful, you can access the data using response.json()
+        response.raise_for_status()  
         transaction_data = response.json()
         return transaction_data
 
@@ -202,9 +200,6 @@ def get_balance_data(wallet_address):
     except requests.exceptions.RequestException as err:
         print(f"An unexpected error occurred: {err}")
 
-# this is the other api calls from cryptoapis : 
-
-# get balance data
 
 def index(request):
     response0 = supabase.table('illicit').select("*").eq('illicit', '0').execute()
