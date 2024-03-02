@@ -176,8 +176,6 @@ def get_balance_data(wallet_address):
 # this is the other api calls from cryptoapis : 
 
 # get balance data
-
-def crypto_get_balance_data(wallet_address):
     
 
 def index(request):

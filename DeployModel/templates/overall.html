@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Overall Analysis</title>
-    <link rel="stylesheet" href="{% static "assets/css/illicit.css"%}">
+    <link rel="stylesheet" href="{% static "assets/css/overall.css"%}">
 </head>
 <body>
     <nav>
@@ -31,11 +31,54 @@
     <section class="content" id="content">
         <h1>Overall Analysis</h1>
         <br>
-        <form action="{% url 'overall'%}">
+        <form class="data" action="{% url 'overall'%}">
             {% csrf_token %}
-            <label for="wa1">Wallet Address 1</label>
-            <input type="text" placeholder="Enter addr1..." id="wa1" name="hash">
+            <label for="wa1"></label>
+            <input type="text" placeholder="Enter transaction, blockchain, wallet address..." name="hash" />
+            <button type="submit"><img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchtransaction" type="submit"></button> 
         </form>
+        <br>
+        {% if val == 1  %}
+        <article class="output">
+            <h4>Transaction ID</h4>
+            <p class="value">...</p>
+            <h4>Exchange Predicted</h4>
+            <p class="value">...</p>
+            <h4>Input Address</h4>
+            <p class="value">...</p>
+            <h4>Output Address</h4>
+            <p class="value">...</p>
+            <h4>Bitcoins Sent</h4>
+            <p class="value">...</p>
+        </article>
+        {% endif %}
+        {% if val == 2  %}
+        <article class="output">
+            <h4>Blockchain ID</h4>
+            <p class="value">...</p>
+            <h4>Number of Transactions</h4>
+            <p class="value">...</p>
+            <h4>Previous Block Hash</h4>
+            <p class="value">...</p>
+            <h4>Height</h4>
+            <p class="value">...</p>
+        </article>
+        {% endif %}
+        {% if val == 3  %}
+        <article class="output">
+            <h4>Wallet Address</h4>
+            <p class="value">...</p>
+            <h4>Number of Transactions</h4>
+            <p class="value">...</p>
+            <h4>Total Recieved</h4>
+            <p class="value">...</p>
+            <h4>Total Sent</h4>
+            <p class="value">...</p>
+            <h4>Final Balance</h4>
+            <p class="value">...</p>
+        </article>
+        {% endif %}
+        
     </section>
     <script type="module" src="{% static "assets/js/illicit.js"%}"></script>
 </body>
