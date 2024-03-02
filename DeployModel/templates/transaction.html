@@ -30,20 +30,21 @@
         <h1>Transaction Analysis</h1>
         <br>
         <article class="services">
-            <form class="searchtransaction">
-                <input type="text" placeholder="Enter transaction ID..." id="searchbar">
-                <img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchtransaction">
+            <form class="searchtransaction" action="{% url "transaction" %}">
+                {% csrf_token %}
+                <input type="text" placeholder="Enter transaction ID..." id="searchbar" name="txid">
+                <img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchtransaction" type="submit">
+                
             </form>
            <!-- <div class="line-separator" id="line-separator"></div> -->
            <form class="searchwallet">
                 <input type="text" placeholder="Enter wallet Address..." id="searchbar">
                 <img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchwallet">
+                
            </form>
             <div class="output_container">
                 <p>
-                    {
-                        Analysis goes here....
-                    }
+                    {{ vin }}{{vout}}
                 </p>
             </div>
         </article>

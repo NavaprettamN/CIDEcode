@@ -30,7 +30,7 @@
         <h1>Illicit Transactions</h1>
         <br>
         <article class="illicit">
-            <div class="data">
+            <form class="data" action="{% url 'illicit'%}">
                 <div>
                     <label for="wa1">Wallet Address 1</label>
                     <input type="text" placeholder="Enter addr1..." id="wa1">
@@ -51,7 +51,7 @@
                     <label for="numtx">Number of Transactions</label>
                     <input type="number" placeholder="Number of Transactions..." id="numtx">
                 </div>
-            </div>
+            </form>
             <div class="output">
                 <p> 
                     {

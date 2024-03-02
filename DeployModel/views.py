@@ -12,11 +12,41 @@ supabase_api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
 
 supabase = create_client(supabase_url, supabase_api_key)
 
-def home(request):
-    return render(request, "home.html")
+# view for transaction block
+
+def transaction_page(request):
+    print(request.GET == {})
+    if request.GET != {}:
+        # here do the checking of txid (api call -> store data -> data to model -> value of risk)
+        print(request, "2nd one")
+        txid = request.GET['txid']
+        txid_data = get_transaction_data(txid)
+        vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
+
+        print(vin, vout)
+        return render(request, "transaction.html", {vin: vin, vout: "vout"})
+
+    return render(request, "transaction.html")
+
+def illicit_page(request):
+    if request.GET != {}:
+        # here do the checking of txid (api call -> store data -> data to model -> value of risk)
+        print(request, "2nd one")
+        txid = request.GET['txid']
+        txid_data = get_transaction_data(txid)
+        vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
+
+        print(vin, vout)
+        return render(request, "illicit.html", {vin: vin, vout: "vout"})
+
+    return render(request, "illicit.html")
+
+
+
+
 
 def result(request):
-    cls = joblib.load('finalise_model.sav')
+    cls = joblib.load('illicit_model_v001.sav')
 
     value_in_String = request.GET['txid']
     value_in_int = int(value_in_String)
@@ -31,8 +61,9 @@ def result(request):
 
     return render(request, "result.html", {'ans': data})
 
+
 def blockApi(block_hash):
-    api_url = f'https://blockchain.info/rawblock/${block_hash}'
+    api_url = f'https://blockchain.info/rawblock/{block_hash}'
     try:
         response = requests.get(api_url)
         response.raise_for_status()
@@ -44,16 +75,16 @@ def blockApi(block_hash):
         return None
     
 
-def get_block_data(block_hash):
-    api_url = f'https://blockchain.info/rawblock/{block_hash}'
+def get_transaction_data(transaction_hash):
+    api_url = f'https://blockchain.info/rawtx/{transaction_hash}'
     
     try:
         response = requests.get(api_url)
         response.raise_for_status()  # Check for HTTP errors
 
         # If the request was successful, you can access the data using response.json()
-        block_data = response.json()
-        return block_data
+        transaction_data = response.json()
+        return transaction_data
 
     except requests.exceptions.HTTPError as errh:
         print(f"HTTP Error: {errh}")
@@ -67,21 +98,6 @@ def get_block_data(block_hash):
 def index(request):
     return render(request, "index.html")
 
-def transaction_page(request):
-    return render(request, "transaction.html")
-
 def mixer_page(request):
     return render(request, "mixer.html")
-
-def illicit_page(request):
-    return render(request, "illicit.html")
-
-
-
-# Replace 'your_block_hash' with the actual block hash you want to retrieve
-# block_hash_to_get = '0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103'
-# block_data = get_block_data(block_hash_to_get)
-
-# # Do something with the block_data
-# pprint.pprint(block_data)
 
