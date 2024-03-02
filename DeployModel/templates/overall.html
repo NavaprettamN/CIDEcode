@@ -40,16 +40,14 @@
         <br>
         {% if val == 1  %}
         <article class="output">
-            <h4>Transaction ID</h4>
-            <p class="value">...</p>
-            <h4>Exchange Predicted</h4>
-            <p class="value">...</p>
             <h4>Input Address</h4>
-            <p class="value">...</p>
+            <p class="value">{% for i in sender_addresses %}{{i}}<br>{% endfor %}</p>
             <h4>Output Address</h4>
-            <p class="value">...</p>
+            <p class="value">{% for i in receiver_addresses %}{{i}}<br>{% endfor %}</p>
             <h4>Bitcoins Sent</h4>
-            <p class="value">...</p>
+            <p class="value">{{bin}}</p>
+            <h4>Bitcoins Received</h4>
+            <p class="value">{{bout}}</p>
         </article>
         {% endif %}
         {% if val == 2  %}
@@ -62,16 +60,14 @@
         {% endif %}
         {% if val == 3  %}
         <article class="output">
-            <h4>Wallet Address</h4>
-            <p class="value">...</p>
             <h4>Number of Transactions</h4>
-            <p class="value">...</p>
+            <p class="value">{{n_tx}}</p>
             <h4>Total Recieved</h4>
-            <p class="value">...</p>
+            <p class="value">{{total_received}}</p>
             <h4>Total Sent</h4>
-            <p class="value">...</p>
+            <p class="value">{{total_sent}}</p>
             <h4>Final Balance</h4>
-            <p class="value">...</p>
+            <p class="value">{{balance}}</p>
         </article>
         {% endif %}
         {% if val == 4 %}
