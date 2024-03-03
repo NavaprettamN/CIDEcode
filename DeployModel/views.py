@@ -113,7 +113,7 @@ def mixer_page(request):
 def overall_analaysis_page(request):
     if request.GET != {}:
         hash = request.GET['hash']
-        bitcoin_address_pattern = re.compile(r'^[13][a-km-zA-HJ-NP-Z1-9]*$')
+        bitcoin_address_pattern = re.compile(r'^[a-km-zA-HJ-NP-Z1-9]*$')
         block_hash_pattern = re.compile(r'^0000000[0-9a-fA-F]*$')
         transaction_hash_pattern = re.compile(r'^[0-9a-f]*$')
         
