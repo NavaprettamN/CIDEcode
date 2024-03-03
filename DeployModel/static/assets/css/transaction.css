@@ -161,7 +161,7 @@ input[type=text] {
     width: 65vw;
     border: 1px solid white;
     border-radius: 2vw;
-    height: 60vh;
+    height: 70vh;
     margin: 0 auto;
     transform: translateY(1%);
     background-color: black;
@@ -183,6 +183,7 @@ input[type=text] {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    height: 80vh;
 }
 
 .displaytext p {

@@ -48,24 +48,15 @@ def transaction_page(request):
         # for i in sender_adresses:
         #     ts=get_single_address_data(i)
         #     total_sent+=m['total_sent']
-
-        
+        n = vin + vout
         data_api = get_sender_data(txid)
-        # m = get_single_address_data(sender_adresses[0])
-        # n = m['n_tx']
-        # total_sent = m['total_sent']
-        
+        print(type(data_api))
+        data_api*=61990
         print(n, data_api)
-
         exchange_model = joblib.load('exchange_v001.sav')
-
-
-        x = exchange_model.predict([[9, 10, 6.660171, 3.256691, 13, 4546.74]])
-        print(x)
-        return render(request, "transaction.html", {'txid': txid,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses})
-
-        
-
+        x = exchange_model.predict([[vin, vout, bin, bout, n, data_api]])[0]
+        # print(x)
+        return render(request, "transaction.html", {'txid': txid,'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'sender_addresses': sender_adresses, 'receiver_addresses': receiver_addresses, 'exchange': x})
     return render(request, "transaction.html")
 
 # illicit page view
@@ -103,10 +94,17 @@ def mixer_page(request):
     if request.GET != {}:
         txid = request.GET['txid']
         txid_data = get_transaction_data(txid)
-
-        return render(request, "mixer,html")
-
-
+        vin, vout = txid_data['vin_sz'], txid_data['vout_sz']
+        bin,bout=0,0
+        for i in txid_data['inputs']:
+            bin += i['prev_out']['value']
+            bin /= 100000
+        for i in txid_data['out']:
+            bout += i['value']
+            bout /= 100000
+        model = joblib.load('')
+        anomalous = model.predict[[vin, vout, bin, bout]]
+        return render(request, "mixer,html", {'anomalous':anomalous, 'vin': vin, 'vout': vout})
     return render(request, "mixer.html")
 
 # overall model {txid/block_hash/wallet_hash -> }
