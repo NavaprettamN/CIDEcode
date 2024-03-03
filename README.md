@@ -8,8 +8,6 @@ nava:
 - store important variables in supabase
 - retrive supabase variables
 
-pranav:
-- IP
   
 pooja:
 - model
