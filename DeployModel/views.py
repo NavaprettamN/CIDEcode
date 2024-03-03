@@ -271,6 +271,14 @@ def get_sender_data(hash):
 # get balance data
 
 def index(request):
+    req_headers = request.META
+    x_forwarded_for_value = req_headers.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for_value:
+        ip_addr = x_forwarded_for_value.split(',')[-1].strip()
+    else:
+        ip_addr = req_headers.get('REMOTE_ADDR')
+    print(ip_addr)
     response0 = supabase.table('illicit').select("*").eq('illicit', '0').execute()
     response1 = supabase.table('illicit').select("*").eq('illicit', '1').execute()
-    return render(request, "index.html", {"licit": len(response0['data']), "illicit": len(response1['data'])})
+    return render(request, "index.html", {"licit": len(response0['data']), "illicit": len(response1['data']), "ip_addr": ip_addr})
+    # return render(request, "index.html", {"licit": len(response0['data']), "illicit": len(response1['data'])})
