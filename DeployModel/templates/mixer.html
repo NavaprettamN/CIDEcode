@@ -30,19 +30,23 @@
         <h1>Mixer Analysis</h1>
         <br>
         <article class="mixer">
-            <div class="data">
+            <form class="data" action="{% url 'mixer'%}">
                 <label for="txid">Transaction ID</label>
                 <div>
-                    <input type="text" placeholder="Enter tx_id..." id="txid">
+                    <input type="text" placeholder="Enter tx_id..." id="txid" name="txid">
                     <button type="submit"><img src="{% static "assets/vectors/transaction/search.png" %}" class="searchbtn" alt="Search" id="searchtransaction" type="submit"></button> 
                 </div>
-            </div>
-            <div class="output">
-                <p> 
-                    {
-                        Analysis goes here!
-                    }
+            </form>
+            <div class="output" style="text-align: center;align-items: center">
+                {% if anomalous == 1 %}
+                <p style="padding-top:20vh;">
+                    Mixer Usage Detected
                 </p>
+                {% else %} 
+                <p style="padding-top:20vh;">
+                    No Mixer Usage Detected
+                </p>
+                {% endif %}
             </div>
         </article>
     </section>

@@ -166,6 +166,7 @@ cython_debug/
 finalise_model.sav
 illicit_model_v001.sav
 exchange_v001.sav
+mixer_model_v001.sav
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

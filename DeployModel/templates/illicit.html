@@ -48,13 +48,19 @@
                         <p>Type of Transaction </p>
                     </div>
                     <div class="displayval">
-                        {% if txid and vin and vout and illicit %}
+                        {% if vin and vout %}
                         <p>{{txid}}</p>
                         <p>{{vin}}</p>
                         <p>{{vout}}</p>
-                        <p>{% if illicit == 0 %} Licit (Legal) {% endif %}</p>
-                        <p>{% if illicit == 1 %} Illicit (Illegal) {% endif %}</p>
-                        {% endif %}
+                        {% if illicit == 0 %}
+                        <p> Licit (Legal)
+                        </p>
+                            {% else %}
+                        <p> Illicit (Illegal)
+                        </p>
+                            {% endif %}
+                            {% endif %}
+
                     </div> 
             </div>
         </article>

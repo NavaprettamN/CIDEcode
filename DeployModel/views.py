@@ -79,11 +79,11 @@ def illicit_page(request):
         model = joblib.load('illicit_model_v001.sav')
 
         model_result = int(model.predict([[vin, vout, bin, bout]])[0])
-        
+        print(model_result, vin, vout)
         # supabase txid, vin, vout, bin, bout, 
         data, count = supabase.table('illicit').insert({"tx_id": txid, "vin": vin, "vout": vout, "bin": bin, "bout": bout, "illicit": model_result}).execute()
         # print(data[0], count)
-        return render(request, "illicit.html", {'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'illicit': model_result})
+        return render(request, "illicit.html", {'txid': txid, 'vin': vin, 'vout': vout, 'bin': bin, 'bout': bout, 'illicit': model_result})
 
     return render(request, "illicit.html")
 
@@ -102,9 +102,10 @@ def mixer_page(request):
         for i in txid_data['out']:
             bout += i['value']
             bout /= 100000
-        model = joblib.load('')
-        anomalous = model.predict[[vin, vout, bin, bout]]
-        return render(request, "mixer,html", {'anomalous':anomalous, 'vin': vin, 'vout': vout})
+        model = joblib.load('mixer_model_v002.sav')
+        anomalous = model.predict([[vin, vout, bin, bout]])
+        print(anomalous)
+        return render(request, "mixer.html", {'anomalous':anomalous, 'vin': vin, 'vout': vout})
     return render(request, "mixer.html")
 
 # overall model {txid/block_hash/wallet_hash -> }
